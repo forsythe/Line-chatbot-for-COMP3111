@@ -104,11 +104,24 @@ public class KitchenSinkTester {
 		boolean thrown = false;
 		String result = null;
 		try {
-			result = this.databaseEngine.search("What comes after");
+			result = this.databaseEngine.search("asdfasdf");
+		} catch (Exception e) {
+			thrown = true;
+		}
+		assertThat(thrown);
+		assertThat(result == null);
+	}
+
+	@Test
+	public void testFoundMaximalSubstring() throws Exception {
+		boolean thrown = false;
+		String result = null;
+		try {
+			result = this.databaseEngine.search("How is the grade of this course?");
 		} catch (Exception e) {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result == null);
+		assertThat(result.equals("This is absolute good grade for good student. And I am sure you are!"));
 	}
 }

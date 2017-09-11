@@ -1,6 +1,8 @@
 package com.example.bot.spring;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -29,17 +31,36 @@ public class DatabaseEngine {
 		BufferedReader br = null;
 		InputStreamReader isr = null;
 		try {
-			isr = new InputStreamReader(
-                    this.getClass().getResourceAsStream(FILENAME));
+			isr = new InputStreamReader(this.getClass().getResourceAsStream(FILENAME));
 			br = new BufferedReader(isr);
 			String sCurrentLine;
-			
-			while (result == null && (sCurrentLine = br.readLine()) != null) {
-				String[] parts = sCurrentLine.split(":");
+
+			ArrayList<String> lines = new ArrayList<String>();
+			while ((sCurrentLine = br.readLine()) != null) {
+				lines.add(sCurrentLine);
+			}
+
+			Comparator<String> lengthComp = new Comparator<String>() {
+				@Override
+				public int compare(String o1, String o2) {
+					if (o1.length() > o2.length())
+						return -1;
+					if (o2.length() > o1.length())
+						return 1;
+					return 0;
+				}
+			};
+
+			lines.sort(lengthComp);
+			// sort and match starting from longest replies (to match the biggest reply)
+			for (String line : lines) {
+				String[] parts = line.split(":");
 				if (text.toLowerCase().contains(parts[0].toLowerCase())) {
 					result = parts[1];
+					break;
 				}
 			}
+
 		} catch (IOException e) {
 			log.info("IOException while reading file: {}", e.toString());
 		} finally {
@@ -55,8 +76,8 @@ public class DatabaseEngine {
 		if (result != null)
 			return result;
 		throw new Exception("NOT FOUND");
-    }
-	
+	}
+
 	private final String FILENAME = "/static/database.txt";
 
 }
