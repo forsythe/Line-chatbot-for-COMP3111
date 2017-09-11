@@ -43,6 +43,8 @@ public class DatabaseEngine {
 			Comparator<String> lengthComp = new Comparator<String>() {
 				@Override
 				public int compare(String o1, String o2) {
+					o1 = o1.split(":")[0];
+					o2 = o2.split(":")[0];
 					if (o1.length() > o2.length())
 						return -1;
 					if (o2.length() > o1.length())
