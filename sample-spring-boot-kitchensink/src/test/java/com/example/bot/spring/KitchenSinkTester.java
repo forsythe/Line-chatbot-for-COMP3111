@@ -85,4 +85,30 @@ public class KitchenSinkTester {
 		assertThat(!thrown);
 		assertThat(result.equals("Great!"));
 	}
+
+	@Test
+	public void testFoundSubstring() throws Exception {
+		boolean thrown = false;
+		String result = null;
+		try {
+			result = this.databaseEngine.search("What comes after abc");
+		} catch (Exception e) {
+			thrown = true;
+		}
+		assertThat(!thrown);
+		assertThat(result.equals("def"));
+	}
+
+	@Test
+	public void testNotFoundSubstring() throws Exception {
+		boolean thrown = false;
+		String result = null;
+		try {
+			result = this.databaseEngine.search("What comes after");
+		} catch (Exception e) {
+			thrown = true;
+		}
+		assertThat(!thrown);
+		assertThat(result == null);
+	}
 }
