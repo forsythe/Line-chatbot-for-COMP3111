@@ -74,7 +74,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		log.info("result: " + result);		
+		log.info("result: " + result);
 		assertThat(result.contains("def"));
 	}
 
@@ -88,7 +88,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		log.info("result: " + result);		
+		log.info("result: " + result);
 		assertThat(result.contains("Great!"));
 	}
 
@@ -102,7 +102,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		log.info("result: " + result);		
+		log.info("result: " + result);
 		assertThat(result.contains("def"));
 	}
 
@@ -129,7 +129,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		log.info("result: " + result);		
+		log.info("result: " + result);
 		assertThat(result.contains("This is absolute good grade for good student"));
 	}
 
@@ -143,8 +143,24 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		log.info("result: " + result);		
+		log.info("result: " + result);
 		assertThat(result.contains("Great!"));
+	}
+
+	@Test
+	public void testManyConnections() throws Exception {
+		for (int k = 0; k < 25; k++) {
+			boolean thrown = false;
+			String result = null;
+			try {
+				result = this.databaseEngine.search("i am fine hi");
+			} catch (Exception e) {
+				thrown = true;
+			}
+			assertThat(!thrown);
+			//log.info("result: " + result);
+			assertThat(result.contains("Great!"));
+		}
 	}
 
 }

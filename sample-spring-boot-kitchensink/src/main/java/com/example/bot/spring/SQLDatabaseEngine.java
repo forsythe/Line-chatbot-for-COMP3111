@@ -55,7 +55,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 				log.info("trying to search for output " + pair[1]);
 				PreparedStatement incrementHits = connection.prepareStatement(
 						"UPDATE chatbotresponse SET hitcount=hitcount+1 WHERE output='" + pair[1] + "'");
-				incrementHits.executeUpdate(); //it's an update!
+				incrementHits.executeUpdate(); // it's an update!
 				log.info("incremented hits!");
 
 				PreparedStatement getNewHits = connection
@@ -67,10 +67,12 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 					amt = hits.getInt(1);
 				}
 				log.info("got hits! (" + amt + ")");
+
+				connection.close();
 				return pair[1] + " (" + amt + " hit(s))";
 			}
 		}
-
+		connection.close();
 		throw new Exception("NOT FOUND");
 	}
 
