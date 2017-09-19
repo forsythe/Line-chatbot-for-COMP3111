@@ -34,6 +34,7 @@ public class DatabaseEngine {
 			isr = new InputStreamReader(this.getClass().getResourceAsStream(FILENAME));
 			br = new BufferedReader(isr);
 			String sCurrentLine;
+			
 
 			ArrayList<String> lines = new ArrayList<String>();
 			while ((sCurrentLine = br.readLine()) != null) {
@@ -52,7 +53,7 @@ public class DatabaseEngine {
 					return 0;
 				}
 			};
-
+			
 			lines.sort(lengthComp);
 			// sort and match starting from longest replies (to match the biggest reply)
 			for (String line : lines) {

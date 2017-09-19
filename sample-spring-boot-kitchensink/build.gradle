@@ -15,6 +15,8 @@
  */
 
 apply plugin: 'org.springframework.boot'
+apply plugin : 'java'
+
 
 dependencies {
     compile project(':line-bot-spring-boot')
@@ -22,5 +24,6 @@ dependencies {
 }
 
 test {
-    environment "DATABASE_URL", "PUT YOUR URI HERE" 
+    environment "DATABASE_URL", "postgres://wmulcztjbomlgq:51558e68b24797ef320fd80f633b425b2117da90ea1d768de39766b5885c8a61@ec2-54-235-177-45.compute-1.amazonaws.com:5432/dajph5pjtpcf0k"
+    testLogging.showStandardStreams = true
 }

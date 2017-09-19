@@ -44,10 +44,12 @@ import lombok.extern.slf4j.Slf4j;
 import com.example.bot.spring.DatabaseEngine;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
+//@SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
+@SpringBootTest(classes = { KitchenSinkTester.class, SQLDatabaseEngine.class })
+
 public class KitchenSinkTester {
 	@Autowired
-	private DatabaseEngine databaseEngine;
+	private SQLDatabaseEngine databaseEngine;
 
 	@Test
 	public void testNotFound() throws Exception {
@@ -58,6 +60,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(thrown);
+
 	}
 
 	@Test
@@ -122,7 +125,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("This is absolute good grade for good student. And I am sure you are!"));
+		assertThat(result.equals("This is absolute good grade for good student"));
 	}
 
 	@Test
