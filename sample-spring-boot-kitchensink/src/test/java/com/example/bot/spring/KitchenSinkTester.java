@@ -44,9 +44,10 @@ import lombok.extern.slf4j.Slf4j;
 import com.example.bot.spring.DatabaseEngine;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
+// @SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
 @SpringBootTest(classes = { KitchenSinkTester.class, SQLDatabaseEngine.class })
 
+@Slf4j
 public class KitchenSinkTester {
 	@Autowired
 	private SQLDatabaseEngine databaseEngine;
@@ -73,7 +74,8 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("def"));
+		log.info("result: " + result);		
+		assertThat(result.contains("def"));
 	}
 
 	@Test
@@ -86,7 +88,8 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("Great!"));
+		log.info("result: " + result);		
+		assertThat(result.contains("Great!"));
 	}
 
 	@Test
@@ -99,7 +102,8 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("def"));
+		log.info("result: " + result);		
+		assertThat(result.contains("def"));
 	}
 
 	@Test
@@ -125,7 +129,8 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("This is absolute good grade for good student"));
+		log.info("result: " + result);		
+		assertThat(result.contains("This is absolute good grade for good student"));
 	}
 
 	@Test
@@ -138,7 +143,8 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("Great!"));
+		log.info("result: " + result);		
+		assertThat(result.contains("Great!"));
 	}
 
 }

@@ -17,18 +17,18 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		String result = null;
 
 		Connection connection = getConnection();
-		
+
 		PreparedStatement stmtGetAll = connection.prepareStatement("SELECT input, output FROM chatbotresponse;");
 		ResultSet rs = stmtGetAll.executeQuery();
-		
+
 		log.info("Success on executing query!");
-		
+
 		ArrayList<String[]> pairs = new ArrayList<String[]>();
-		
+
 		while (rs.next()) {
-			String[] temp = new String[] {rs.getString(1), rs.getString(2)};
+			String[] temp = new String[] { rs.getString(1), rs.getString(2) };
 			pairs.add(temp);
-			//1 index, not 0 index!!! 
+			// 1 index, not 0 index!!!
 			log.info("retrieved line: " + temp[0] + ", " + temp[1]);
 		}
 		log.info("done retrieving lines");
@@ -49,12 +49,25 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 
 		pairs.sort(lengthComp);
 
-		
-
 		for (String[] pair : pairs) {
 			String check_input = pair[0];
 			if (userInput.toLowerCase().contains(check_input.toLowerCase())) {
-				return pair[1];
+				log.info("trying to search for output " + pair[1]);
+				PreparedStatement incrementHits = connection.prepareStatement(
+						"UPDATE chatbotresponse SET hitcount=hitcount+1 WHERE output='" + pair[1] + "'");
+				incrementHits.executeUpdate(); //it's an update!
+				log.info("incremented hits!");
+
+				PreparedStatement getNewHits = connection
+						.prepareStatement("SELECT hitcount FROM chatbotresponse WHERE output='" + pair[1] + "'");
+				ResultSet hits = getNewHits.executeQuery();
+
+				int amt = -1;
+				while (hits.next()) {
+					amt = hits.getInt(1);
+				}
+				log.info("got hits! (" + amt + ")");
+				return pair[1] + " (" + amt + " hit(s))";
 			}
 		}
 
