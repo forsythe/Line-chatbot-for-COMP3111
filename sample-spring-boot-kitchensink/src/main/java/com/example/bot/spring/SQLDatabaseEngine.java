@@ -31,6 +31,9 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 			// 1 index, not 0 index!!!
 			log.info("retrieved line: " + temp[0] + ", " + temp[1]);
 		}
+		rs.close();
+		stmtGetAll.close();
+		
 		log.info("done retrieving lines");
 		for (String[] pair : pairs) {
 			log.info(pair[0] + " + " + pair[1]);
@@ -57,6 +60,8 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 						"UPDATE chatbotresponse SET hitcount=hitcount+1 WHERE output='" + pair[1] + "'");
 				incrementHits.executeUpdate(); // it's an update!
 				log.info("incremented hits!");
+				
+				incrementHits.close();
 
 				PreparedStatement getNewHits = connection
 						.prepareStatement("SELECT hitcount FROM chatbotresponse WHERE output='" + pair[1] + "'");
@@ -67,7 +72,9 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 					amt = hits.getInt(1);
 				}
 				log.info("got hits! (" + amt + ")");
-
+				
+				hits.close();
+				getNewHits.close();
 				connection.close();
 				return pair[1] + " (" + amt + " hit(s))";
 			}
