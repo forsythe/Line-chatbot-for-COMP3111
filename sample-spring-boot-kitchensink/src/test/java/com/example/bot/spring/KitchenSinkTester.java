@@ -60,7 +60,7 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(thrown);
+		assertThat(thrown).isEqualTo(true);
 
 	}
 
@@ -73,9 +73,9 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
+		assertThat(!thrown).isEqualTo(true);
 		log.info("result: " + result);
-		assertThat(result.contains("def"));
+		assertThat(result).contains("def");
 	}
 
 	@Test
@@ -87,9 +87,9 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
+		assertThat(!thrown).isEqualTo(true);
 		log.info("result: " + result);
-		assertThat(result.contains("Great!"));
+		assertThat(result).contains("Great!");
 	}
 
 	@Test
@@ -101,9 +101,9 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
+		assertThat(!thrown).isEqualTo(true);
 		log.info("result: " + result);
-		assertThat(result.contains("def"));
+		assertThat(result).contains("def");
 	}
 
 	@Test
@@ -115,8 +115,8 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(thrown);
-		assertThat(result == null);
+		assertThat(thrown).isEqualTo(true);
+		assertThat(result).isNull();
 	}
 
 	@Test
@@ -128,9 +128,9 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
+		assertThat(!thrown).isEqualTo(true);
 		log.info("result: " + result);
-		assertThat(result.contains("This is absolute good grade for good student"));
+		assertThat(result).contains("This is absolute good grade for good student");
 	}
 
 	@Test
@@ -142,14 +142,14 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
+		assertThat(!thrown).isEqualTo(true);
 		log.info("result: " + result);
-		assertThat(result.contains("Great!"));
+		assertThat(result).contains("Great!");
 	}
 
 	@Test
 	public void testManyConnections() throws Exception {
-		for (int k = 0; k < 25; k++) {
+		for (int k = 0; k < 10; k++) {
 			boolean thrown = false;
 			String result = null;
 			try {
@@ -157,9 +157,9 @@ public class KitchenSinkTester {
 			} catch (Exception e) {
 				thrown = true;
 			}
-			assertThat(!thrown);
+			assertThat(!thrown).isEqualTo(true);
 			//log.info("result: " + result);
-			assertThat(result.contains("Great!"));
+			assertThat(result).contains("Great!");
 		}
 	}
 
