@@ -57,14 +57,16 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 			if (userInput.toLowerCase().contains(check_input.toLowerCase())) {
 				log.info("trying to search for output " + pair[1]);
 				PreparedStatement incrementHits = connection.prepareStatement(
-						"UPDATE chatbotresponse SET hitcount=hitcount+1 WHERE output='" + pair[1] + "'");
+						"UPDATE chatbotresponse SET hitcount=hitcount+1 WHERE output=?");
+				incrementHits.setString(1, ""+pair[1]);
 				incrementHits.executeUpdate(); // it's an update!
 				log.info("incremented hits!");
 				
 				incrementHits.close();
 
 				PreparedStatement getNewHits = connection
-						.prepareStatement("SELECT hitcount FROM chatbotresponse WHERE output='" + pair[1] + "'");
+						.prepareStatement("SELECT hitcount FROM chatbotresponse WHERE output=?");
+				getNewHits.setString(1,  ""+pair[1]);
 				ResultSet hits = getNewHits.executeQuery();
 
 				int amt = -1;
