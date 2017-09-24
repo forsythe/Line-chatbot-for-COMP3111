@@ -129,6 +129,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown).isEqualTo(true);
+		log.info("expected contains: " + "This is absolute good grade for good student");		
 		log.info("result: " + result);
 		assertThat(result).contains("This is absolute good grade for good student");
 	}
